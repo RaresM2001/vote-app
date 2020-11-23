@@ -8,7 +8,7 @@
 
   :root {
    --primary:  #5b3cc4;
-   --primary-dark: #492cab;
+   --dark: #161c2d;
   }
 
 * {
@@ -16,6 +16,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  box-sizing: border-box;
+  /* transition: all .4s; */
 }
 
 body {

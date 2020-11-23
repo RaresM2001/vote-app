@@ -29,9 +29,6 @@ export default {
             }
         }
     },
-    mounted() {
-        // this.verifyToken();
-    },
     methods: {
         async login() {
             const loading = this.$vs.loading({
@@ -44,12 +41,13 @@ export default {
                 username: this.emailAddress, 
                 password: this.password
             })
-
-            console.log(result);
             
             loading.close();
-            if(result.data.success) this.$router.push('/dashboard');
-            else {
+            if(result.data.success) {
+                localStorage.setItem('firstName', result.data.adminInfo.firstName);
+                localStorage.setItem('lastName', result.data.adminInfo.lastName);
+                this.$router.push('/dashboard');
+            } else {
                 if(result.data.incorrectUsername) {this.credentialsError.username = true; console.log('incorrect username')}
                 if(result.data.incorrectPassword) {this.credentialsError.password = true; console.log('incorrect password')}
             }
@@ -62,11 +60,6 @@ export default {
         clearPassword() {
             this.credentialsError.password = false;
         }
-
-        // async verifyToken() {
-        //     let result = await axios.post('http://localhost:8081/auth/verify_token');
-        //     if(result.success) $router.push('/dashboard');
-        // }
     }
 }
 </script>

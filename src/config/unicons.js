@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Unicon from 'vue-unicons'
-import { uniLayerGroupMonochrome, uniCarWash } from 'vue-unicons/src/icons'
+import { uniSignout, uniSetting, uniHomeAlt, uniThumbsDown, uniUsersAlt, uniEnvelope } from 'vue-unicons/src/icons'
 
-Unicon.add([uniLayerGroupMonochrome, uniCarWash])
-Vue.use(Unicon, { fill: 'red', height: 25, width: 25 });
+Unicon.add([uniSignout, uniSetting, uniHomeAlt, uniThumbsDown, uniUsersAlt, uniEnvelope])
+Vue.use(Unicon, { height: 25, width: 25 });
