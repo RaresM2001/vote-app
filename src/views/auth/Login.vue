@@ -7,7 +7,6 @@
                 <input type="text" placeholder="adresa mail" v-model="emailAddress">
                 <input type="password" placeholder="parola" v-model="password">
                 <button class="small-btn small-btn-centered" @click="login">logare</button>
-                <button class="small-btn small-btn-centgered" @click="verifyToken">verify token</button>
             </div>
             <p id="bottom-footer">Built by MRVIT SRL 2020.</p>
         </div>
@@ -15,9 +14,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-axios.defaults.withCredentials = true;
-
+ 
 export default {
     data() {
         return {
@@ -25,6 +22,9 @@ export default {
             password: '',
             isLoading: false 
         }
+    },
+    mounted() {
+        // this.verifyToken();
     },
     methods: {
         async login() {
@@ -40,12 +40,13 @@ export default {
             })
             
             loading.close();
+            if(result.data.success) this.$router.push('/dashboard');
         },
 
-        async verifyToken() {
-            let result = await axios.post('http://localhost:8081/auth/verify_token');
-            if(result.statusCode == 401) alert('Unauthorized user.')
-        }
+        // async verifyToken() {
+        //     let result = await axios.post('http://localhost:8081/auth/verify_token');
+        //     if(result.success) $router.push('/dashboard');
+        // }
     }
 }
 </script>
