@@ -4,10 +4,11 @@
         <div class="right">
             <div id="form-container" class="absolute-center light-shadow">
                 <h1 class="title">Logare</h1>
-                <input type="text" placeholder="adresa mail" v-model="emailAddress">
-                <input type="password" placeholder="parola" v-model="password">
+                <input type="text" placeholder="adresa mail" v-model="emailAddress" :class="{ dangerInput : credentialsError.username }" @focus="clearUsername">
+                <input type="password" placeholder="parola" v-model="password" :class="{dangerInput: credentialsError.password}" @focus="clearPassword">
+                <p class="danger-p" v-if="credentialsError.password">Parola introdusa este gresita!</p>
+                <p class="danger-p" v-if="credentialsError.username">Adresa de mail introdusa este gresita!</p>
                 <button class="small-btn small-btn-centered" @click="login">logare</button>
-                <button class="small-btn small-btn-centgered" @click="verifyToken">verify token</button>
             </div>
             <p id="bottom-footer">Built by MRVIT SRL 2020.</p>
         </div>
@@ -15,15 +16,17 @@
 </template>
 
 <script>
-import axios from 'axios';
-axios.defaults.withCredentials = true;
-
+ 
 export default {
     data() {
         return {
             emailAddress: '',
             password: '',
-            isLoading: false 
+            isLoading: false,
+            credentialsError: {
+                username: false,
+                password: false,
+            }
         }
     },
     methods: {
@@ -40,11 +43,22 @@ export default {
             })
             
             loading.close();
+            if(result.data.success) {
+                localStorage.setItem('firstName', result.data.adminInfo.firstName);
+                localStorage.setItem('lastName', result.data.adminInfo.lastName);
+                this.$router.push('/dashboard');
+            } else {
+                if(result.data.incorrectUsername) {this.credentialsError.username = true; console.log('incorrect username')}
+                if(result.data.incorrectPassword) {this.credentialsError.password = true; console.log('incorrect password')}
+            }
         },
 
-        async verifyToken() {
-            let result = await axios.post('http://localhost:8081/auth/verify_token');
-            if(result.statusCode == 401) alert('Unauthorized user.')
+        clearUsername() {
+            this.credentialsError.username = false;
+        },
+
+        clearPassword() {
+            this.credentialsError.password = false;
         }
     }
 }
@@ -93,5 +107,21 @@ export default {
 
 button {
     margin-top: 50px;
+}
+
+.dangerInput {
+    border-color: red;
+    color: red;
+}
+
+.danger-p {   
+    margin: 0;
+    color: red;
+    text-align: center;
+    position: absolute;
+    bottom: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
 }
 </style>
