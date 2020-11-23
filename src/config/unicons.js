@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Unicon from 'vue-unicons'
 import { uniLayerGroupMonochrome, uniCarWash } from 'vue-unicons/src/icons'
 
