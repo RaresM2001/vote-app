@@ -66,6 +66,13 @@ button:hover {
   background-color: var(--primary-dark);
 }
 
+.rounded-btn {
+  height: 30px;
+  width: 90px;
+  border-radius: 15px;
+  font-size: .8em;
+}
+
 .small-btn {
   width: 300px;
 }
