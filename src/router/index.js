@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/auth/Login.vue'
 import Dashboard from '../views/dashboard/Dashboard.vue';
+import DashboardMembers from '../views/dashboard/views/Members.vue'
 
 Vue.use(VueRouter)
 
@@ -14,7 +15,10 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    children: [
+      { path: 'members', name: 'dash-members', component: DashboardMembers}
+    ]
   }
 ]
 
