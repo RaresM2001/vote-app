@@ -34,7 +34,8 @@ export default {
 .content {
     width: calc(100% - 300px);
     min-height: 100vh;
-    float: left;
+    position: absolute;
+    right: 0;
 }
 </style>
 

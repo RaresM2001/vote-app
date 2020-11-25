@@ -1,10 +1,10 @@
 <template>
     <div id="side-bar">
-        <h1 class="title">Sindicatul National Solidaritatea</h1>
+        <h1 class="title text-centered">Sindicatul National Solidaritatea</h1>
         <ul id="side-nav-list">
             <li class="side-li"><unicon name="home-alt" class="icon"></unicon><p>Acasa</p></li>
-            <li class="side-li"><unicon name="users-alt" class="icon"></unicon><p>Membrii Sindicat</p></li>
-            <li class="side-li"><unicon name="thumbs-down" class="icon"></unicon><p>Poll-uri</p></li>
+            <router-link tag="li" :to="{name: 'dash-members'}" class="side-li"><unicon name="users-alt" class="icon"></unicon><p>Membrii Sindicat</p></router-link>
+            <router-link tag="li" :to="{name: 'dash-create-poll'}" class="side-li"><unicon name="thumbs-down" class="icon"></unicon><p>Poll-uri</p></router-link>
             <li class="side-li"><unicon name="envelope" class="icon"></unicon><p>Mesaje</p></li>
         </ul>
     </div>
@@ -17,11 +17,15 @@ export default {
 <style scoped>
 #side-bar {
     height: 100%;
+    height: 100%;
     min-height: 100vh;
     width: 300px;
     float: left;
     background-color: var(--dark);
     padding: 0 20px 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .title {
@@ -41,7 +45,7 @@ export default {
 .side-li {
     width: 100%;
     height: 45px;
-    color: #948f8f;
+    color: #d8d8d8;
     font-weight: bold;
     border-radius: 5px;
     font-size: 1.1em;
@@ -63,13 +67,13 @@ export default {
 }
 
 .side-li .icon {
-    fill: #948f8f;
+    fill: #d8d8d8;
     position: absolute;
     top: 5px;
 }
 
 .side-li p {
-    color: #948f8f;
+    color: #d8d8d8;
     padding-left: 35px;
     margin: 0;
 }

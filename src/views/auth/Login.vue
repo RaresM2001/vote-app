@@ -109,11 +109,6 @@ button {
     margin-top: 50px;
 }
 
-.dangerInput {
-    border-color: red;
-    color: red;
-}
-
 .danger-p {   
     margin: 0;
     color: red;
