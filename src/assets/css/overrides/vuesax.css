@@ -1,0 +1,21 @@
+.vs-table__tr.isExpand:first-of-type .vs-table__td {
+    background: var(--primary);
+    color: white;
+    border-radius: 0px;
+  } 
+  .vs-table__tr.isExpand:not(:first-of-type) .vs-table__td {
+    background: var(--primary) !important;
+    color: white;
+  }
+  
+  .vs-table.striped .vs-table__tr:nth-child(2n) {
+    background: #ececec;
+  } 
+  
+  .vs-table__tr__expand td .vs-table__expand__td__content__sub {
+    background-color: rgba(91,60,196, .5);
+    color: white;
+    font-weight: bold;
+  }
+  
+  
