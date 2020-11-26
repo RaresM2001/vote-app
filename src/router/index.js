@@ -5,6 +5,8 @@ import Dashboard from '../views/dashboard/Dashboard.vue'
 import DashboardMembers from '../views/dashboard/views/Members.vue'
 import CreatePoll from '../views/dashboard/views/CreatePoll.vue'
 import Home from '../views/dashboard/views/Home.vue'
+import Vote from '../views/vote/Vote.vue'
+import VotePlaced from '../views/vote/VotePlaced.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +15,16 @@ const routes = [
     path: '/',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/vote/:pollId/:memberId',
+    name: 'vote',
+    component: Vote
+  },
+  {
+    path: '/vote/finish',
+    name: 'vote-placed',
+    component: VotePlaced
   },
   {
     path: '/dashboard',
