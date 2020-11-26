@@ -6,11 +6,13 @@
 
 <style>
 
-  :root {
-   --primary:  #5b3cc4;
-   --dark: #161c2d;
-   --danger: #ff4657;
-  }
+:root {
+  --primary:  #5b3cc4;
+  --primary-dark: #3f229e;
+  --dark: #161c2d;
+  --danger: #ff4657;
+  --danger-dark: #bd2533;
+} 
 
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -81,7 +83,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--dark);
+  background-color: var(--primary-dark);
 }
 
 .rounded-btn {
