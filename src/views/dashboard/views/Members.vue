@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div id="container">
     <vs-table v-model="selected" striped>
       <template #thead>
@@ -66,12 +66,13 @@ export default {
   },
   methods: {
     async getMembers() {
+      const loading = this.$vs.loading({background: '#5b3cc4', color: '#fff'});
       this.members = [];
       let result = await axios.get('http://localhost:8081/members');
       for(let i = 0; i < result.data.members.length; i++) {
-       this.members.push(result.data.members[i])
-      //  added a comment fo git  ce pula mea se intampla
+       this.members.push(result.data.members[i]);
       }
+      loading.close();
     }
   }
 };
@@ -82,13 +83,9 @@ export default {
   margin-left: 10%;
 }
 
-.vs_rable__thead {
-  background: red;
-}
-
 .more-info-list {
   list-style-type: none;
-  color: white;
+  /* color: white; */
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -111,5 +108,7 @@ export default {
   right: 40px;
   top: 60px;
 }
+
+
 </style>
 

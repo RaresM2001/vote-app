@@ -7,10 +7,9 @@ import store from './store'
 require('./config/axios')
 require('./config/unicons')
 require('./config/vuesax')
+require('./config/apexcharts')
 
 Vue.config.productionTip = false
-
-
 
 new Vue({
   router,

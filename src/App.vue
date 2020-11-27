@@ -12,6 +12,7 @@
   --dark: #161c2d;
   --danger: #ff4657;
   --danger-dark: #bd2533;
+  --success: #46c93a;
 } 
 
 * {
