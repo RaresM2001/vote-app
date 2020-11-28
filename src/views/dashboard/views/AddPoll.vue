@@ -1,250 +1,232 @@
 <template>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-sl-12 form-wrapper">
-      <div class="row">
-        <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12 inner-wrapper">
-          <h1>Creati Poll Nou</h1>
-          <form>
-            <div class="form-group">
-              <label for>Titlu</label>
-              <div class="input-group">
-                <input v-model="pollInfo.title" type="text" class="form-control">
-              </div>
-            </div>
-           
-            <div class="form-group" style="padding-bottom: 25px;">
-              <label for="exampleFormControlTextarea1">Descriere poll</label>
-              <textarea v-model="pollInfo.description" class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-              <div class="inline">
-                <div class="check-box-all" @click='toggleAll' v-bind:class='{selected: pollInfo.selectedAll}' style="float: left; margin-right: 5px;"></div>
-                <div style="float: left;"><p>Selectati toti membrii</p></div>
-              </div>
-            </div>
-            <div class="from-group">
-              <label>Selectati participanti</label>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Nume si Prenume</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">CNP</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(member, index) in membersArray" :key='member._id'>
-                    <th scope="row">
-                      <div class="check-box" @click='toggleSelect(index)' v-bind:key='member._id' v-bind:class='{selected: member.selectedForPoll}'></div>
-                    </th>
-                    <td>{{member.firstAndLastName}}</td>
-                    <td>{{member.email}}</td>
-                    <td>{{member.CNP}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="form-group">
-              <button @click='createPoll' class="btn custom-bg">Creare Poll</button>
-            </div>
-          </form>
+  <div class="root">
+    <div id="left">
+      <h1 class="title">Informatii Poll</h1>
+      <input type="text" placeholder="titlu" v-model="pollInfo.title" />
+      <div id="checkbox-container">
+        <vs-checkbox
+          v-model="pollInfo.yesOrNo"
+          class="m-checkbox"
+          @click="pollInfo.isGeneralQuestion = false"
+        >
+          Da & Nu
+        </vs-checkbox>
+        <vs-checkbox
+          v-model="pollInfo.isGeneralQuestion"
+          class="m-checkbox"
+          @click="pollInfo.yesOrNo = false"
+        >
+          Raspuns Multiplu
+        </vs-checkbox>
+      </div>
+      <div id="yesOrNo" v-if="pollInfo.yesOrNo">
+        <textarea
+          type="text"
+          placeholder="introduceti intrebarea"
+          v-model="pollInfo.question"
+        ></textarea>
+        <button class="m-btn small-btn" @click="createPoll">creati poll</button>
+      </div>
+      <div id="generalQuestion" v-if="pollInfo.isGeneralQuestion">
+        <textarea
+          type="text"
+          placeholder="introduceti intrebarea"
+          v-model="pollInfo.question"
+        ></textarea>
+        <div class="group">
+          <input
+            type="text"
+            :class="{ dangerInput: wrongInputValues.answerOption }"
+            placeholder="adauga varianta / candidat"
+            v-model="pollInfo.answerOption"
+          />
+        </div>
+        <div class="group">
+          <button class="m-btn rounded-btn" @click="addAnswerOption">
+            Adauga
+          </button>
+        </div>
+        <div class="clearfix"></div>
+        <button class="m-btn small-btn" @click="createPoll">creati poll</button>
+      </div>
+    </div>
+    <div id="right">
+      <h1 class="title">Vizionare Poll</h1>
+      <div id="preview">
+        <h1 class="small-title">{{ pollInfo.title }}</h1>
+        <p class="question-p">{{ pollInfo.question }}</p>
+        <div v-if="pollInfo.isGeneralQuestion" id="checkbox-preview-container">
+          <vs-checkbox
+            class="m-checkbox"
+            v-for="option in multipleAnswersOptions"
+            :key="option"
+          >
+            {{ option }}
+          </vs-checkbox>
+           <button v-if="multipleAnswersOptions.length" style="float: left;" class="m-btn small-btn small-btn-centered">voteaza</button>
+        </div>
+        <div id="yesOrNoContainer" v-if="pollInfo.yesOrNo">
+          <button class="m-btn small-btn">DA</button>
+          <button class="m-btn small-btn">nu</button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
       pollInfo: {
-        title: '',
-        author: '',
-        description: '',
-        selectedMembers: [],
-        selectedAll: false
+        title: "",
+        yesOrNo: false,
+        isGeneralQuestion: false,
+        question: "",
+        answerOption: "",
       },
-      membersArray: [],
+      multipleAnswersOptions: [],
+      wrongInputValues: {
+        answerOption: false,
+        title: false,
+        generalQuestion: false,
+      },
     };
   },
   methods: {
-
-    toggleSelect(index) {
-      var replacement =  this.membersArray[index];
-      replacement.selectedForPoll = !this.membersArray[index].selectedForPoll;
-      this.membersArray.splice(index, 1,  replacement);
+    addAnswerOption() {
+      if (this.pollInfo.answerOption != "")
+        this.multipleAnswersOptions.push(this.pollInfo.answerOption);
+      else this.wrongInputValues.answerOption = true;
+      this.pollInfo.answerOption = "";
     },
- 
-    changeMembers(into) {
-      //declaring a member counter
-      var index = 0;
-      this.membersArray.forEach((member) => {
-          //creating an member replacement
-          var replacement = member;
-          replacement.selectedForPoll = into;
-          //replacing the member
-          this.membersArray.splice(index, 1,  replacement);
-          //incrementing counter
-          index++;
-        });
+    clearInputs() {
+      this.wrongInputValues.answerOption = false;
+      this.wrongInputValues.generalQuestion = false;
+      this.wrongInputValues.title = false;
     },
-
-    toggleAll() {
-      this.pollInfo.selectedAll = !this.pollInfo.selectedAll;
-      if(this.pollInfo.selectedAll) {
-        this.changeMembers(true);
+    clearFields() {
+      this.pollInfo.title = '';
+      this.pollInfo.question = '';
+      this.multipleAnswersOptions = [];
+    },
+    async createPoll() {
+      var pollData;
+      if (this.pollInfo.yesOrNo) {
+        pollData = {
+          title: this.pollInfo.title,
+          adminId: localStorage.getItem("adminId"),
+          question: this.pollInfo.question,
+          yesOrNoAnswers: [],
+          options: [],
+          optionAnswers: []
+        };
       } else {
-        this.changeMembers(false);
+        pollData = {
+          title: this.pollInfo.title,
+          question: this.pollInfo.question,
+          adminId: localStorage.getItem("adminId"),
+          yesOrNoAnswers: [],
+          options: this.multipleAnswersOptions,
+          optionAnswers: []
+        };
+      }
+      let result = await axios.post('http://localhost:8081/polls', {
+        ...pollData
+      });
+      if(result.data.success)  {
+        this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Creat', text: 'Poll-ul a fost creat cu succes!'})
+        this.clearFields();
       }
     },
-
-    /**
-     * CREATING THE POLL
-     * @param event preventing the form from submission
-    */
-
-    createPoll(event) {
-      //preventing the submission of the form
-      event.preventDefault();
-
-      //creating the selectetMembers arr
-      this.pollInfo.selectedMembers = this.membersArray.filter((member) => {
-        return member.selectedForPoll;
-      });
-
-      //creating the request body
-      var requestBody = {
-        title: this.pollInfo.title,
-        author: localStorage.useremail,
-        participants: this.pollInfo.selectedMembers,
-        description: this.pollInfo.description,
-        token: localStorage.token
-      }
-
-      //make the request
-      const INSTANCE = this;
-      axios.post('https://sfafsibiu.herokuapp.com/create_poll', requestBody).then(function(response) {
-        if(response.status === 200) {
-          //deselecting the members 
-          INSTANCE.changeMembers(false);
-          INSTANCE.pollInfo.selectedAll = false;
-          INSTANCE.$swal('Poll creeat', 'Sesiune de vot deshisa.', 'success');
-          console.log('Request sent with response 200');
-        } else {
-          console.log(response.body); 
-          INSTANCE.$swal('Eroare!', 'Incercati mai tariziu.', 'error');
-        }
-      });
-    }
   },
-  mounted() {
-    
-  }
 };
 </script>
-
 <style scoped>
-.form-group {
-  margin: 50px 0 50px 0;
+.title {
+  text-align: left;
 }
-
-.inner-wrapper {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0px 0px 13px 0px rgba(82,63,105,0.05);
+.m-btn {
+  float: left;
+}
+#left,
+#right {
+  width: 50%;
+  height: 100vh;
+  float: left;
+  position: relative;
+}
+#left {
+  padding-left: 100px;
+}
+#right .title {
+  padding-left: 15%;
+}
+#right p {
+  text-align: center;
+}
+#right .question-p {
+  max-width: 100%;
+}
+#preview {
+  width: 70%;
+  min-height: 800px;
+  margin-left:15%;
   padding: 20px;
+  padding-bottom: 50px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 3px 0px 6px rgba(0,0,0,0.23);
 }
-
-.form-wrapper {
-  padding: 0 50px 20px 50px;
-}
-
-.custom-bg {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  outline: none;
-  border-radius: 4px;
-  color: white;
-  width: 150px;
-  height: 40px;
-}
-
-.custom-bg:hover {
-  background-color: #485cbd;
-}
-
-.custom-bg:focus, .custom-bg:active {
-  border-color: var(--primary);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--primary);
-  outline: none !important;
-}
-
-thead {
-  background-color: var(--primary);
-  color: white;
-  border: none;
-}
-
-.selected {
-  background-color: var(--primary);
-  border-color: var(--primary);
-}
-
-label {
-  color: black;
-  font-size: 1.2em;
-}
-
-form {
-  padding: 30px;
-}
-
-h1 {
+#preview .m-checkbox {
   margin-left: 30px;
+  margin-bottom: 30px;
 }
-
-.form-control:focus {
-  border-color: transparent;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--primary);
+#checkbox-preview-container {
+  min-height: 100px;
 }
-
-.check-box {
-  width: 20px;
-  height: 20px;
-  border: 2px solid lightgrey;
-  /* background-color: lightgray; */
-  box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
-  transition: all 0.4s;
-  border-radius: 4px;
-  cursor: pointer;
+#preview #yesOrNoContainer button {
+  width: 45%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  float: left;
 }
-
-.check-box-all {
-  width: 20px;
-  height: 20px;
-  border: 2px solid lightgrey;
-  /* background-color: lightgray; */
-  box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
-  transition: all 0.4s;
-  border-radius: 4px;
-  cursor: pointer;
+#preview #yesOrNoContainer button:nth-child(2) {
+  background-color: var(--danger);
 }
-
-.inline {
-  margin-top: 25px;
-  margin-bottom: 25px;
+input,
+textarea {
+  float: left;
+  width: 100%;
+  margin-left: 0;
 }
-
-p {
-  margin: 0;
+.m-checkbox {
+  float: left;
 }
-
-table {
-  margin-top: 0;
-  margin: 0;
-  max-height: 500px;
-  overflow: auto;
+.clearfix {
+  clear: both;
+  content: "";
 }
-</style>
+.m-checkbox:nth-child(2) {
+  margin-left: 50px;
+}
+#checkbox-container {
+  width: 100%;
+  margin-bottom: 30px;
+  float: left;
+}
+#yesOrNo,
+#generalQuestion {
+  margin-top: 50px;
+}
+.group {
+  width: 50%;
+  float: left;
+  margin-bottom: 20px;
+}
+.group .rounded-btn {
+  margin-left: 20px;
+}
+.small-title {
+  font-size: 1.3em;
+  margin-top: 50px;
+  text-align: center;
+}
+</style> 
