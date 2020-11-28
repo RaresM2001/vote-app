@@ -3,11 +3,12 @@ import VueRouter from 'vue-router'
 import Login from '../views/auth/Login.vue'
 import Dashboard from '../views/dashboard/Dashboard.vue'
 import DashboardMembers from '../views/dashboard/views/Members.vue'
-import CreatePoll from '../views/dashboard/views/CreatePoll.vue'
+import CreatePoll from '../views/dashboard/views/AddPoll.vue'
 import Home from '../views/dashboard/views/Home.vue'
 import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
 import Polls from '../views/dashboard/views/Polls.vue'
+import AddMember from '../views/dashboard/views/AddMember.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,7 @@ const routes = [
     children: [
       { path: '', name: 'dash-home', component: Home },
       { path: 'members', name: 'dash-members', component: DashboardMembers },
+      { path: 'add_member', name: 'add-member', component: AddMember },
       { path: 'create_poll', name: 'dash-create-poll', component: CreatePoll },
       { path: 'polls', name: 'polls-list', component: Polls }
     ]

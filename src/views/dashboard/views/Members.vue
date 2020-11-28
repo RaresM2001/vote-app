@@ -1,6 +1,6 @@
 <template>
-  <div id="container">
-    <vs-table v-model="selected" striped>
+      <div id="container">
+    <vs-table v-model="selected">
       <template #thead>
         <vs-tr>
           <vs-th>
@@ -14,57 +14,65 @@
           <vs-th> Nume </vs-th>
           <vs-th> Email </vs-th>
           <vs-th> DGRFP </vs-th>
+          <vs-th> CNP </vs-th>
+          <vs-th> Adresa </vs-th>
         </vs-tr>
       </template>
       <template #tbody>
         <vs-tr
           :key="i"
-          v-for="(tr, i) in members"
-          :data="tr"
-          :is-selected="!!selected.includes(tr)"
-          not-click-selected
+          v-for="(member, i) in members"
+          :data="member"
+          :is-selected="!!selected.includes(member)"
         >
           <vs-td checkbox>
-            <vs-checkbox :val="tr" v-model="selected" />
+            <vs-checkbox :val="member" v-model="selected" />
           </vs-td>
           <vs-td>
-            {{ tr.firstName }}
+            {{ member.firstName }}
           </vs-td>
           <vs-td>
-            {{ tr.lastName }}
+            {{ member.lastName }}
           </vs-td>
           <vs-td>
-             {{ tr.email }} <!--fasfasdfas -->
+             {{ member.email }}
           </vs-td>
           <vs-td>
-            {{ tr.DGRFP }}
+            {{ member.DGRFP }}
           </vs-td>
-          <template #expand>
-              <ul class="more-info-list">
-                <li>CNP: {{tr.CNP}}</li>
-                <li>Adresa: {{tr.address}}</li>
-              </ul>
-              <button class="m-btn rounded-btn" id="send-private-mail-btn">mail</button>
-              <button class="m-btn rounded-btn" id="delete">Delete</button>
-            </template>
+          <vs-td>
+            {{ member.CNP }}
+          </vs-td>
+           <vs-td>
+            {{ member.address }}
+          </vs-td>
+           <vs-td>
+           <button id="delete-btn" @click="() => {deleteMember(member._id)}">stergeti</button>
+          </vs-td>
         </vs-tr>
       </template>
     </vs-table>
+    <div id="actions" v-if="selected.length">
+      <button class="m-btn small-btn" id="delete-btn">stergeti membrii selectati</button>
+    </div>
   </div>
 </template>
 <script>
+import Vue from 'vue';
 export default {
+
   data: () => ({
-    allCheck: false,
+   allCheck: false,
     selected: [],
     members: [
       {}
-    ],
+],
   }),
-  mounted() {
-    this.getMembers();
+  async mounted() {
+    await this.getMembers();
   },
   methods: {
+
     async getMembers() {
       const loading = this.$vs.loading({background: '#5b3cc4', color: '#fff'});
       this.members = [];
@@ -73,6 +81,30 @@ export default {
        this.members.push(result.data.members[i]);
       }
       loading.close();
+    },
+
+    async deleteMember(id) {
+      
+      let result = await axios.delete(`http://localhost:8081/members/${id}`);
+       if (result.data.success) {
+          this.$vs.notification({
+          progress: "auto",
+          color: "success",
+          position: "top-right",
+          title: "Membru Sters",
+          text: `Membrul a fost sters cu success din baza de date!`,
+        });
+      }
+      else
+        this.$vs.notification({
+          progress: "auto",
+          color: "danger",
+          position: "top-right",
+          title: "Eroare",
+          text: `Stergerea membrului a esuat. Incercati mai tarziu.`,
+        });
+
+       this.getMembers();
     }
   }
 };
@@ -83,32 +115,14 @@ export default {
   margin-left: 10%;
 }
 
-.more-info-list {
-  list-style-type: none;
-  /* color: white; */
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.more-info-list  li {
-  margin-bottom: 10px;
-}
-
-.rounded-btn {
-  position: absolute;
-}
-
-#send-private-mail-btn {
-  right: 40px;
-  top: 20px;
-}
-
-#delete {
+#delete-btn {
   background-color: var(--danger);
-  right: 40px;
-  top: 60px;
+  height: 40px;
+  border-radius: 20px;
 }
 
-
+#delete-btn:hover {
+  background-color: var(--danger-dark);
+}
 </style>
 

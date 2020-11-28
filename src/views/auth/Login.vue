@@ -3,7 +3,7 @@
         <div class="left"><div class="overlay"></div></div>
         <div class="right">
             <div id="form-container" class="absolute-center light-shadow">
-                <h1 class="title">Logare</h1>
+                <h1 class="title text-centered">Logare</h1>
                 <input type="text" placeholder="adresa mail" v-model="emailAddress" :class="{ dangerInput : credentialsError.username }" @focus="clearUsername">
                 <input type="password" placeholder="parola" v-model="password" :class="{dangerInput: credentialsError.password}" @focus="clearPassword">
                 <p class="danger-p" v-if="credentialsError.password">Parola introdusa este gresita!</p>
@@ -85,7 +85,8 @@ export default {
 #form-container {
     width: 400px;
     height: 400px;
-    background-color: white;     
+    background-color: white;    
+    padding: 0 40px 0 40px; 
 }
 
 .overlay {
