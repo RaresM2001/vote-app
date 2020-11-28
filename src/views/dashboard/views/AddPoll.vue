@@ -140,25 +140,7 @@ export default {
     }
   },
   mounted() {
-    // getting all the members 
-    const INSTANCE = this;
-    axios.get('https://sfafsibiu.herokuapp.com/get_members', {headers: {"x-auth": localStorage.token}}).then(function(response) {
-      if(response.status === 200) {
-        
-        //retriveing the members array
-        INSTANCE.membersArray = response.data;
-
-        //initializing all members as not selected
-        INSTANCE.membersArray.forEach(function(member) {
-          member.selectedForPoll = false;
-        });
-      } else {
-       alert('Something went bad. Please try again later');
-      }
-    }).catch((error) => {
-      alert('Somethign went wrong');
-      // $router.push('dashboard');
-    });
+    
   }
 };
 </script>

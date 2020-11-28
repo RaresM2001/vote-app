@@ -118,7 +118,9 @@ export default {
 #delete-btn {
   background-color: var(--danger);
   height: 40px;
+  width: 80px;
   border-radius: 20px;
+  font-size: .9em;
 }
 
 #delete-btn:hover {
