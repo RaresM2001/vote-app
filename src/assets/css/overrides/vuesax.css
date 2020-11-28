@@ -13,8 +13,8 @@
   } 
   
   .vs-table__tr__expand td .vs-table__expand__td__content__sub {
-    background-color: rgba(91,60,196, .5);
-    color: white;
+    background-color:white;
+    /* color: white; */
     font-weight: bold;
   }
   

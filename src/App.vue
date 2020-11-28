@@ -12,6 +12,7 @@
   --dark: #161c2d;
   --danger: #ff4657;
   --danger-dark: #bd2533;
+  --success: #46c93a;
 } 
 
 * {
@@ -44,13 +45,11 @@ body {
 }
 
 input, textarea {
-  width: 300px;
-  margin-left: calc(50% - 150px);
+  width: 100%;
   height: 40px;
   margin-bottom: 35px;
   border: none;
   border-bottom: 2px solid lightgrey;
-  padding: 0px -20px 0 20px;
   transition: all .4s;
 }
 

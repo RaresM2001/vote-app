@@ -3,9 +3,10 @@
         <h1 class="title text-centered">Sindicatul National Solidaritatea</h1>
         <ul id="side-nav-list">
             <li class="side-li"><unicon name="home-alt" class="icon"></unicon><p>Acasa</p></li>
+            <router-link tag="li" :to="{name: 'add-member'}" class="side-li"><unicon name="plus" class="icon"></unicon><p>Adauga Membru</p></router-link>
             <router-link tag="li" :to="{name: 'dash-members'}" class="side-li"><unicon name="users-alt" class="icon"></unicon><p>Membrii Sindicat</p></router-link>
-            <router-link tag="li" :to="{name: 'dash-create-poll'}" class="side-li"><unicon name="thumbs-down" class="icon"></unicon><p>Poll-uri</p></router-link>
-            <li class="side-li"><unicon name="envelope" class="icon"></unicon><p>Mesaje</p></li>
+            <router-link tag="li" :to="{name: 'dash-create-poll'}" class="side-li"><unicon name="thumbs-down" class="icon"></unicon><p>Creaza Poll</p></router-link>
+            <router-link tag="li" :to="{name: 'polls-list'}" class="side-li"><unicon name="archive-alt" class="icon"></unicon><p>Poll-uri</p></router-link>
         </ul>
     </div>
 </template>
