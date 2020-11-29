@@ -7,14 +7,20 @@
             <div class="card light-shadow">
                 <p class="count"><span>{{pollCount}}</span> polluri</p>
             </div>
-            <div id="chart-container">
-
-            </div>
+            <div class="clearfix"></div>
         </div>
+        
+          <div id="chart-container" class="light-shadow">
+              <multiple-bar-chart></multiple-bar-chart>
+            </div>
     </div>
 </template>
 <script>
+import MultipleBarChart from '../../../components/charts/MultipleBarChart.vue'
 export default {
+    components: {
+        MultipleBarChart
+    },
     data() {
         return {
             memberCount: 0,
@@ -45,6 +51,15 @@ export default {
     margin-left: 7.5%;
 }
 
+#cards-container {
+    margin-bottom: 50px;
+}
+
+.clearfix {
+    content: "";
+    clear: both;
+}
+
 .card {
     width: 25%;
     height: 150px;
@@ -71,5 +86,13 @@ span {
     color: var(--primary);
     font-size: 3em;
 }
+
+#chart-container {
+    width: 65%;
+    padding: 10px;
+    min-height: 400px;
+    border-radius: 15px;
+}
+
 
 </style>

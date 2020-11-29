@@ -74,6 +74,7 @@
   </div>
 </template>
 <script>
+import dateUtil from '../../../utils/date';
 export default {
   data() {
     return {
@@ -99,16 +100,21 @@ export default {
       else this.wrongInputValues.answerOption = true;
       this.pollInfo.answerOption = "";
     },
+
     clearInputs() {
       this.wrongInputValues.answerOption = false;
       this.wrongInputValues.generalQuestion = false;
       this.wrongInputValues.title = false;
     },
+
     clearFields() {
       this.pollInfo.title = '';
       this.pollInfo.question = '';
       this.multipleAnswersOptions = [];
+      this.pollInfo.yesOrNo = false;
+      this.pollInfo.isGeneralQuestion = false;
     },
+
     async createPoll() {
       var pollData;
       if (this.pollInfo.yesOrNo) {
@@ -118,7 +124,9 @@ export default {
           question: this.pollInfo.question,
           yesOrNoAnswers: [],
           options: [],
-          optionAnswers: []
+          optionAnswers: [],
+          closed: false,
+          date: dateUtil.currentDateFormat()
         };
       } else {
         pollData = {
@@ -127,7 +135,9 @@ export default {
           adminId: localStorage.getItem("adminId"),
           yesOrNoAnswers: [],
           options: this.multipleAnswersOptions,
-          optionAnswers: []
+          optionAnswers: [],
+          closed: false,
+          date: dateUtil.currentDateFormat()
         };
       }
       let result = await axios.post('http://localhost:8081/polls', {
@@ -137,7 +147,8 @@ export default {
         this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Creat', text: 'Poll-ul a fost creat cu succes!'})
         this.clearFields();
       }
-    },
+    }
+
   },
 };
 </script>
