@@ -48,7 +48,8 @@ export default {
             if(result.data.success) {
                 localStorage.setItem('firstName', result.data.adminInfo.firstName);
                 localStorage.setItem('lastName', result.data.adminInfo.lastName);
-                localStorage.setItem('tradeUnion', result.data.adminInfo.tradeUnion)
+                localStorage.setItem('tradeUnion', result.data.adminInfo.tradeUnion);
+                localStorage.setItem('adminId', result.data.adminInfo.id)
                 this.$router.push('/dashboard');
             } else {
                 if(result.data.incorrectUsername) {this.credentialsError.email = true; console.log('incorrect email')}

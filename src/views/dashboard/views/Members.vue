@@ -73,7 +73,8 @@ export default {
     async getMembers() {
       const loading = this.$vs.loading({background: '#5b3cc4', color: '#fff'});
       this.members = [];
-      let result = await axios.get('http://localhost:8081/members');
+      let id = localStorage.adminId;
+      let result = await axios.get(`http://localhost:8081/members/${id}`);
       for(let i = 0; i < result.data.members.length; i++) {
        this.members.push(result.data.members[i]);
       }
