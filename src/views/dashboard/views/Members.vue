@@ -52,9 +52,6 @@
         </vs-tr>
       </template>
     </vs-table>
-    <div id="actions" v-if="selected.length">
-      <button class="m-btn small-btn" id="delete-btn">stergeti membrii selectati</button>
-    </div>
   </div>
 </template>
 <script>
