@@ -27,6 +27,7 @@ export default {
         email: "",
         DGRFP: "",
         joinedIn: "",
+        adminId: ""
       }
     };
   },
@@ -43,9 +44,10 @@ export default {
 
     async addMember(event) {
       event.preventDefault();
+      this.memberInfo.adminId = localStorage.adminId;
+      console.log(this.memberInfo)
       let result = await axios.post("http://localhost:8081/members", {
         ...this.memberInfo,
-        adminId: localStorage.adminId,
       });
       if (result.data.success) {
         notifications.notifySuccess('Membru adaugat!', 'Membrul a fost adaugat cu succes in baza de date!', this.$vs);
@@ -56,8 +58,7 @@ export default {
     },
 
     async addMemberToMailingList(member) {
-      console.log()
-      let result = await axios.post('http://localhost:8081/mailgun/add_member/members', {...member});
+      let result = await axios.post('http://localhost:8081/mailgun/add_member/members', {member: {...member},  tradeUnion: localStorage.tradeUnion.toLowerCase()});
       if(!result.data.success) notifications.notifyFail('Posibila problema!', 'Membrul adaugat nu a fost adaugat in mailing list!');
     }
     

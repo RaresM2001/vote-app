@@ -33,7 +33,8 @@ export default {
     },
     methods: {
         async geMebersCount() {
-            let result = await axios.get('http://localhost:8081/members/count');
+            let adminId = localStorage.adminId;
+            let result = await axios.get(`http://localhost:8081/members/count/${adminId}`);
             if(result.data.success) this.memberCount = result.data.count;
         },
         async getPollsCount() {
