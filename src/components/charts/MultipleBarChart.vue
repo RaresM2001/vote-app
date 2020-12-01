@@ -62,7 +62,8 @@ export default {
         let polls = [];
         let categories = [];
 
-        let result = await axios.get('http://localhost:8081/polls');
+        let id = localStorage.adminId;
+        let result = await axios.get(`http://localhost:8081/polls/${id}`);
         if(result.data.success) {
             result.data.polls.forEach((poll) => {
                 if(poll.options.length == 0) polls.push(poll);
@@ -82,10 +83,7 @@ export default {
                   this.series[1].data[i]++;
                 }
             }
-        }    
-
-        console.log(this.series)   
-    
+        }        
 
         this.options = {
             ...this.options,
