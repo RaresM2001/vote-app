@@ -140,13 +140,19 @@ export default {
           date: dateUtil.currentDateFormat()
         };
       }
+      pollData.adminId = localStorage.adminId;
       let result = await axios.post('http://localhost:8081/polls', {
         ...pollData
       });
       if(result.data.success)  {
         this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Creat', text: 'Poll-ul a fost creat cu succes!'})
+        this.sendMail(result.data.poll._id);
         this.clearFields();
       }
+    },
+
+    async sendMail(pollId) {
+      let result = await axios.post(`http://localhost:8081/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, pollId})
     }
 
   },

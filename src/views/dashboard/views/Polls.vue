@@ -59,7 +59,8 @@ export default {
         color: "#fff",
       });
 
-      let result = await axios.get("http://localhost:8081/polls");
+      let adminId = localStorage.adminId;
+      let result = await axios.get(`http://localhost:8081/polls/${adminId}`);
       this.polls = [];
       if (result.data.success) {
         for (let i = 0; i < result.data.polls.length; i++) {
