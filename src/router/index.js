@@ -9,6 +9,7 @@ import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
 import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
+import VoteError from '../views/vote/VoteError.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/vote/finish',
     name: 'vote-placed',
     component: VotePlaced
+  },
+  {
+    path: '/vote/error',
+    name: 'vote-error',
+    component: VoteError
   },
   {
     path: '/dashboard',

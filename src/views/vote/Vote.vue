@@ -34,8 +34,24 @@ export default {
     async mounted() {
         await this.getPollData();
         await this.getMemberData();
+        this.checkForVote();
     },
     methods: {
+        checkForVote() {
+            
+            let ok = true;
+            if(this.pollData.options.length) {
+                for(let i = 0; i < this.pollData.optionAnswers.length; i++) {
+                    if(this.pollData.optionAnswers[i].memberId == this.$route.params.memberId) ok = false;
+                }
+            } else {
+                for(let i = 0; i < this.pollData.yesOrNoAnswers.length; i++) {
+                    if(this.pollData.yesOrNoAnswers[i].memberId == this.$route.params.memberId)  ok = false;
+                }
+            }
+            if(!ok) {this.$router.push({name: 'vote-error'})}
+        },
+
         async getPollData() {
             let pollId = this.$route.params.pollId;
             
