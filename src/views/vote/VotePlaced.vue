@@ -5,6 +5,7 @@
             Multumim pentru votul dumneavoastra!
         </h1>
         <p class="text-centered">In cazul intampinarilor unor probleme tehnice va rugam sa ne contactati la support-vot@mrv-it.com</p>
+        <p class="text-centered"> <router-link style="text-align: center;" tag="a" to="/polls">Mergeti la Lsta Poll-urilor</router-link></p>
       </div>
     </div>
 </template>

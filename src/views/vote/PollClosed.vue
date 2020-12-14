@@ -5,6 +5,7 @@
             Poll-ul a fost inchis!
         </h1>
         <p class="text-centered">Daca citit acest mesaj inseamna ca poll-ul la care incercati sa participati a expirat sau a fost inchis de catre administrator. Multumim!</p>
+         <p class="text-centered"> <router-link style="text-align: center;" tag="a" to="/polls">Mergeti la Lsta Poll-urilor</router-link></p>
       </div>
     </div>
 </template>
