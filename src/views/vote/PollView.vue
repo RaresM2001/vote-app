@@ -63,6 +63,7 @@ export default {
     await this.getPollData();
     this.checkForFirsTime();
     this.checkForVote();
+    this.checkIfStillOpen();
   },
   methods: {
     checkForFirsTime() {
@@ -74,10 +75,13 @@ export default {
 
     checkForVote() {
       var votes = JSON.parse(localStorage.getItem('votes'));
-      console.log(votes);
       votes.forEach((vote) => {
         if(vote == this.$route.params.id) return this.$router.push({ name: "vote-placed" });
       })
+    },
+
+    checkIfStillOpen() {
+      if(this.pollData.closed) this.$router.push({ name: "poll-closed" });
     },
 
     async getPollData() {
@@ -113,7 +117,9 @@ export default {
     },
 
     async placeOption() {
-      localStorage.votes.push(this.$route.params.id);
+      let votes = JSON.parse(localStorage.getItem('votes'));
+      votes.push(this.$route.params.id);
+      localStorage.setItem('votes', JSON.stringify(votes));
       let pollId = this.$route.params.id;
       let index = this.optionAnswer;
 
@@ -121,7 +127,8 @@ export default {
         `http://localhost:8081/polls/vote/${pollId}/multiple`,
         { vote: index }
       );
-      console.log(result.data);
+      if (result.data.success) this.$router.push({ name: "vote-placed" });
+      else alert("Something went wrong");
     },
   },
 };

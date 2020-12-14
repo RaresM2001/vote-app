@@ -8,6 +8,8 @@ import Home from '../views/dashboard/views/Home.vue'
 import PollsList from '../views/vote/PollsList.vue'
 import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
+import PollClosed from '../views/vote/PollClosed.vue'
+
 import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
 import VoteError from '../views/vote/VoteError.vue'
@@ -41,6 +43,11 @@ const routes = [
     path: '/vote/finish',
     name: 'vote-placed',
     component: VotePlaced
+  },
+  {
+    path: '/poll-closed',
+    name: 'poll-closed',
+    component: PollClosed
   },
   {
     path: '/vote/error',
