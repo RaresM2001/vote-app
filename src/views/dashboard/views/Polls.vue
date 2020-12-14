@@ -23,7 +23,7 @@
           <template #expand>
             <bar-chart v-if="poll.options.length > 0" :pollData="poll"></bar-chart>
             <donut-chart v-else :pollData="poll"></donut-chart>
-            <button class="m-btn rounded-btn" id="delete">inchide</button>
+            <button class="m-btn rounded-btn" id="delete" @click="() => {closePoll(poll._id)}">inchide</button>
           </template>
         </vs-tr>
       </template>
@@ -53,6 +53,12 @@ export default {
   },
 
   methods: {
+    async closePoll(id) {
+      let result = await axios.post(`http://localhost:8081/polls/update/${id}`);
+      console.log(result);
+      if(result.data.success) this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Inchis', text: 'Poll-ul a fost inchis cu succes!'})
+      this.getPolls();
+    },
     async getPolls() {
       const loading = this.$vs.loading({
         background: "#5b3cc4",
