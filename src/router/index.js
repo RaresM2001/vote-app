@@ -5,11 +5,14 @@ import Dashboard from '../views/dashboard/Dashboard.vue'
 import DashboardMembers from '../views/dashboard/views/Members.vue'
 import CreatePoll from '../views/dashboard/views/AddPoll.vue'
 import Home from '../views/dashboard/views/Home.vue'
+import PollsList from '../views/vote/PollsList.vue'
 import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
 import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
 import VoteError from '../views/vote/VoteError.vue'
+import SendMessage from '../views/dashboard/views/SendMessage.vue'
+import PollView from '../views/vote/PollView.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +21,16 @@ const routes = [
     path: '/',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/polls',
+    name: 'polls-list-user',
+    component: PollsList
+  },
+  {
+    path: '/polls/:id',
+    name: 'polls-view',
+    component: PollView
   },
   {
     path: '/vote/:pollId/:memberId',
@@ -42,7 +55,8 @@ const routes = [
       { path: 'members', name: 'dash-members', component: DashboardMembers },
       { path: 'add_member', name: 'add-member', component: AddMember },
       { path: 'create_poll', name: 'dash-create-poll', component: CreatePoll },
-      { path: 'polls', name: 'polls-list', component: Polls }
+      { path: 'polls', name: 'polls-list', component: Polls },
+      { path: 'send_message', name: 'send-message', component: SendMessage }
     ]
   }
 ]
