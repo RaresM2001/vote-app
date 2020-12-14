@@ -19,7 +19,6 @@ export default {
     async sendMessage() {
        console.log('sending message');
        let result = await axios.post(`http://localhost:8081/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
-       console.log(result);
     }
   }
 }
