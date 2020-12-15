@@ -6,18 +6,26 @@
 
 <style>
 
-  :root {
-   --primary:  #5b3cc4;
-   --dark: #161c2d;
-  }
+:root {
+  --primary:  #5b3cc4;
+  --primary-dark: #3f229e;
+  --dark: #161c2d;
+  --danger: #ff4657;
+  --danger-dark: #bd2533;
+  --success: #46c93a;
+} 
 
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+
   box-sizing: border-box;
   /* transition: all .4s; */
+}
+
+h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
+  color: #2c3e50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -32,23 +40,34 @@ body {
   padding: 0;
 }
 
-.title {
+.text-centered {
   text-align: center;
 }
 
-input {
-  width: 300px;
-  margin-left: calc(50% - 150px);
+input, textarea {
+  width: 100%;
   height: 40px;
   margin-bottom: 35px;
   border: none;
   border-bottom: 2px solid lightgrey;
-  padding: 0px -20px 0 20px;
   transition: all .4s;
+}
+
+textarea {
+  border: 2px solid lightgrey;
+  border-radius: 5px;
+  height: 200px;
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
 input:focus {
   border-color: var(--primary);
+}
+
+.dangerInput {
+    border-color: red;
+    color: red;
 }
 
 button {
@@ -64,6 +83,13 @@ button {
 
 button:hover {
   background-color: var(--primary-dark);
+}
+
+.rounded-btn {
+  height: 30px;
+  width: 90px;
+  border-radius: 15px;
+  font-size: .8em;
 }
 
 .small-btn {

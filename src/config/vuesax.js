@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css' 
+import '../assets/css/overrides/vuesax.css'
 
 Vue.use(Vuesax, {
     colors: {

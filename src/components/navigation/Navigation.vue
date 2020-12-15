@@ -29,7 +29,7 @@ nav {
     width: 100%;
     height: 60px;
     position: relative;
-    padding-top: 30px;
+    /* padding-top: 30px; */
 }
 
 #avatar {
@@ -70,6 +70,7 @@ nav {
     padding: 0;
     float: right;
     margin-left: 15px;
+    padding-top: 15px;
     /* padding-top: 8px; */
 }
 </style>

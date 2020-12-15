@@ -1,0 +1,29 @@
+<template>
+    <div class="root">
+      <div id="center">
+        <h1 class="title text-centered">
+            Poll-ul a fost inchis!
+        </h1>
+        <p class="text-centered">Daca citit acest mesaj inseamna ca poll-ul la care incercati sa participati a expirat sau a fost inchis de catre administrator. Multumim!</p>
+         <p class="text-centered"> <router-link style="text-align: center;" tag="a" to="/polls">Mergeti la Lsta Poll-urilor</router-link></p>
+      </div>
+    </div>
+</template>
+<script>
+export default {
+    
+}
+</script>
+<style scoped>
+p {
+    color: grey;
+    text-align: center;
+}
+
+#center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+</style>

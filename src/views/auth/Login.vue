@@ -3,11 +3,11 @@
         <div class="left"><div class="overlay"></div></div>
         <div class="right">
             <div id="form-container" class="absolute-center light-shadow">
-                <h1 class="title">Logare</h1>
-                <input type="text" placeholder="adresa mail" v-model="emailAddress" :class="{ dangerInput : credentialsError.username }" @focus="clearUsername">
+                <h1 class="title text-centered">Logare</h1>
+                <input type="text" placeholder="adresa mail" v-model="emailAddress" :class="{ dangerInput : credentialsError.email }" @focus="clearEmail">
                 <input type="password" placeholder="parola" v-model="password" :class="{dangerInput: credentialsError.password}" @focus="clearPassword">
                 <p class="danger-p" v-if="credentialsError.password">Parola introdusa este gresita!</p>
-                <p class="danger-p" v-if="credentialsError.username">Adresa de mail introdusa este gresita!</p>
+                <p class="danger-p" v-if="credentialsError.email">Adresa de mail introdusa este gresita!</p>
                 <button class="small-btn small-btn-centered" @click="login">logare</button>
             </div>
             <p id="bottom-footer">Built by MRVIT SRL 2020.</p>
@@ -24,7 +24,7 @@ export default {
             password: '',
             isLoading: false,
             credentialsError: {
-                username: false,
+                email: false,
                 password: false,
             }
         }
@@ -38,23 +38,27 @@ export default {
 
 
             let result = await axios.post('http://localhost:8081/auth/login', {
-                username: this.emailAddress, 
+                email: this.emailAddress, 
                 password: this.password
             })
+
+            console.log(result.data);
             
             loading.close();
             if(result.data.success) {
                 localStorage.setItem('firstName', result.data.adminInfo.firstName);
                 localStorage.setItem('lastName', result.data.adminInfo.lastName);
+                localStorage.setItem('tradeUnion', result.data.adminInfo.tradeUnion);
+                localStorage.setItem('adminId', result.data.adminInfo.id)
                 this.$router.push('/dashboard');
             } else {
-                if(result.data.incorrectUsername) {this.credentialsError.username = true; console.log('incorrect username')}
+                if(result.data.incorrectUsername) {this.credentialsError.email = true; console.log('incorrect email')}
                 if(result.data.incorrectPassword) {this.credentialsError.password = true; console.log('incorrect password')}
             }
         },
 
-        clearUsername() {
-            this.credentialsError.username = false;
+        clearEmail() {
+            this.credentialsError.email = false;
         },
 
         clearPassword() {
@@ -85,7 +89,8 @@ export default {
 #form-container {
     width: 400px;
     height: 400px;
-    background-color: white;     
+    background-color: white;    
+    padding: 0 40px 0 40px; 
 }
 
 .overlay {
@@ -107,11 +112,6 @@ export default {
 
 button {
     margin-top: 50px;
-}
-
-.dangerInput {
-    border-color: red;
-    color: red;
 }
 
 .danger-p {   

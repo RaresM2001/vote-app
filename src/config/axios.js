@@ -6,7 +6,7 @@ axios.interceptors.response.use(response => {
   return response;
 }, function(error) {
   if(error.response.status == 401) {
-    window.location = '/'
+    window.location = '/login'
     return Promise.resolve('User is not authorized');
   }
 });
