@@ -8,6 +8,7 @@ import Home from '../views/dashboard/views/Home.vue'
 import PollsList from '../views/vote/PollsList.vue'
 import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
+import AlreadyVoted from '../views/vote/AlreadyVoted.vue'
 import PollClosed from '../views/vote/PollClosed.vue'
 
 import Polls from '../views/dashboard/views/Polls.vue'
@@ -16,16 +17,22 @@ import VoteError from '../views/vote/VoteError.vue'
 import SendMessage from '../views/dashboard/views/SendMessage.vue'
 import PollView from '../views/vote/PollView.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+
+const redirectToList = (to, from, next) => {
+ router.push('polls-list-user');
+ console.log('rares');
+ next();
+}
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: Login
   },
   {
-    path: '/polls',
+    path: '/',
     name: 'polls-list-user',
     component: PollsList
   },
@@ -42,7 +49,14 @@ const routes = [
   {
     path: '/vote/finish',
     name: 'vote-placed',
-    component: VotePlaced
+    component: VotePlaced,
+    beforeLeage:redirectToList
+  },
+  {
+    path: '/vote/already-voted',
+    name: 'already-voted',
+    component: AlreadyVoted,
+    beforeLeave: redirectToList
   },
   {
     path: '/poll-closed',

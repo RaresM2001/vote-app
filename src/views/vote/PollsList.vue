@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title text-centered">Lista Polluri</h1>
+    <h1 class="title text-centered">Lista Voturi</h1>
     <div id="container">
       <router-link tag="div" :to="`/polls/${poll._id}`" class="poll-card-container" v-for="poll in polls" :key="poll._id">
         <div class="poll-card light-shadow">
@@ -23,8 +23,7 @@ export default {
   },
   methods: {
     async getPolls() {
-      console.log("rares are mere ")
-      let result = await axios.get(`http://localhost:8081/polls/${localStorage.adminId}`);
+      let result = await axios.get(`http://localhost:8081/polls`);
       if(result.data.success) this.polls = result.data.polls;
       console.log(this.polls);
     }
@@ -69,4 +68,21 @@ export default {
   color: lightgrey;
 }
 
-</style>
+@media only screen and (max-width: 1400px) {
+  .poll-card-container {
+    width: 33.33%;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .poll-card-container {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .poll-card-container {
+    width: 100%;
+  }
+}
+ </style>

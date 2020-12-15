@@ -76,7 +76,7 @@ export default {
     checkForVote() {
       var votes = JSON.parse(localStorage.getItem('votes'));
       votes.forEach((vote) => {
-        if(vote == this.$route.params.id) return this.$router.push({ name: "vote-placed" });
+        if(vote == this.$route.params.id) return this.$router.push({ name: "already-voted" });
       })
     },
 

@@ -2,10 +2,10 @@
     <div class="root">
       <div id="center">
         <h1 class="title text-centered">
-            Multumim pentru votul dumneavoastra!
+           Votul dumneavoastra a fost deja depus!
         </h1>
         <p class="text-centered">In cazul intampinarilor unor probleme tehnice va rugam sa ne contactati la support-vot@mrv-it.com</p>
-        <p class="text-centered"> <router-link style="text-align: center;" tag="a" to="/">Mergeti la Lsta Poll-urilor</router-link></p>
+        <p class="text-centered"> <router-link style="text-align: center;" tag="a" to="/">Mergeti la Lsta Voturilor</router-link></p>
       </div>
     </div>
 </template>

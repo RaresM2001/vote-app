@@ -54,8 +54,9 @@ export default {
 
   methods: {
     async closePoll(id) {
+      console.log(id);
       let result = await axios.post(`http://localhost:8081/polls/update/${id}`);
-      console.log(result);
+      console.log(result.data);
       if(result.data.success) this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Inchis', text: 'Poll-ul a fost inchis cu succes!'})
       this.getPolls();
     },
