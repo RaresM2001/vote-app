@@ -193,4 +193,13 @@ export default {
   content: "";
   clear: both;
 }
+
+@media only screen and (max-width: 800px) {
+  button {
+    width: 97%;
+    margin-bottom: 30px;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+  }
+}
 </style>
