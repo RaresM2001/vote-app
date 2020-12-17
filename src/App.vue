@@ -9,6 +9,7 @@
 :root {
   --primary:  #5b3cc4;
   --primary-dark: #3f229e;
+  --grey: #f8f9fc;
   --dark: #161c2d;
   --danger: #ff4657;
   --danger-dark: #bd2533;
@@ -17,9 +18,7 @@
 
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-
   box-sizing: border-box;
-  /* transition: all .4s; */
 }
 
 h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {

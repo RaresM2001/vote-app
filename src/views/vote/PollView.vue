@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import environment from '../../utils/environment';
+const URL = require('../../utils/environment')
 export default {
   data() {
     return {
@@ -75,9 +77,15 @@ export default {
 
     checkForVote() {
       var votes = JSON.parse(localStorage.getItem('votes'));
-      votes.forEach((vote) => {
-        if(vote == this.$route.params.id) return this.$router.push({ name: "already-voted" });
-      })
+      if(this.pollData.options.length == 0) {
+        this.pollData.yesOrNoAnswers.forEach((data) => {
+          if(data.email == localStorage.getItem("memberEmail")) return this.$router.push({name: 'already-voted'})
+        })
+      } else {
+        this.pollData.optionAnswers.forEach((data) => {
+          if(data.email == localStorage.getItem("memberEmail")) return this.$router.push({name: 'already-voted'})
+        })
+      }
     },
 
     checkIfStillOpen() {
@@ -88,12 +96,12 @@ export default {
       let pollId = this.$route.params.id;
 
       let result = await axios.get(
-        `http://localhost:8081/polls/poll/${pollId}`
+        `${environment.getApiUrl()}/polls/poll/${pollId}`
       );
       if (result.data.success) this.pollData = result.data.poll;
       else
         alert(
-          "pollul la care incercati sa participati nu exista sau a fost inchis."
+          "Sesiunea de vot la care incercati sa participati nu exista sau a fost inchis."
         );
     },
 
@@ -104,8 +112,8 @@ export default {
       let pollId = this.$route.params.id;
       if (!this.pollData.options.length) {
         let result = await axios.post(
-          `http://localhost:8081/polls/vote/${pollId}/yesorno`,
-          { vote }
+          `${environment.getApiUrl()}/polls/vote/${pollId}/yesorno`,
+          { vote, email: localStorage.getItem('memberEmail') }
         );
         if (result.data.success) this.$router.push({ name: "vote-placed" });
         else alert("Something went wrong");
@@ -124,8 +132,8 @@ export default {
       let index = this.optionAnswer;
 
       let result = await axios.post(
-        `http://localhost:8081/polls/vote/${pollId}/multiple`,
-        { vote: index }
+        `${environment.getApiUrl()}/polls/vote/${pollId}/multiple`,
+        { vote: index, email: localStorage.getItem("memberEmail") }
       );
       if (result.data.success) this.$router.push({ name: "vote-placed" });
       else alert("Something went wrong");

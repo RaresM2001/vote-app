@@ -16,6 +16,8 @@
 </template>
 <script>
 import notifications from '../../../utils/notification';
+import environment from '../../../utils/environment';
+
 export default {
   data() {
     return {
@@ -45,8 +47,7 @@ export default {
     async addMember(event) {
       event.preventDefault();
       this.memberInfo.adminId = localStorage.adminId;
-      console.log(this.memberInfo)
-      let result = await axios.post("http://localhost:8081/members", {
+      let result = await axios.post(`${environment.getApiUrl()}/members`, {
         ...this.memberInfo,
       });
       if (result.data.success) {
@@ -58,7 +59,7 @@ export default {
     },
 
     async addMemberToMailingList(member) {
-      let result = await axios.post('http://localhost:8081/mailgun/add_member/members', {member: {...member},  tradeUnion: localStorage.tradeUnion.toLowerCase()});
+      let result = await axios.post(`${environment.getApiUrl()}/mailgun/add_member/members`, {member: {...member},  tradeUnion: localStorage.tradeUnion.toLowerCase()});
       if(!result.data.success) notifications.notifyFail('Posibila problema!', 'Membrul adaugat nu a fost adaugat in mailing list!');
     }
     

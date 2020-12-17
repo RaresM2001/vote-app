@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import environment from '../../../utils/environment';
 export default {
   data() {
     return {
@@ -17,8 +18,7 @@ export default {
   },
   methods: {
     async sendMessage() {
-       console.log('sending message');
-       let result = await axios.post(`http://localhost:8081/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
+       let result = await axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
     }
   }
 }

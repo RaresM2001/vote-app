@@ -141,7 +141,7 @@ export default {
         };
       }
       pollData.adminId = localStorage.adminId;
-      let result = await axios.post('http://localhost:8081/polls', {
+      let result = await axios.post(`${environment.getApiUrl()}/polls`, {
         ...pollData
       });
       if(result.data.success)  {

@@ -33,6 +33,7 @@
 <script>
 import DonutChart from '../../../components/charts/Donut'
 import BarChart from '../../../components/charts/BarChart'
+import environment from '../../../utils/environment';
 
 export default {
   components: {
@@ -54,9 +55,7 @@ export default {
 
   methods: {
     async closePoll(id) {
-      console.log(id);
-      let result = await axios.post(`http://localhost:8081/polls/update/${id}`);
-      console.log(result.data);
+      let result = await axios.post(`${environment.getApiUrl()}/polls/update/${id}`);
       if(result.data.success) this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Inchis', text: 'Poll-ul a fost inchis cu succes!'})
       this.getPolls();
     },
@@ -67,7 +66,7 @@ export default {
       });
 
       let adminId = localStorage.adminId;
-      let result = await axios.get(`http://localhost:8081/polls/${adminId}`);
+      let result = await axios.get(`${environment.getApiUrl()}/polls/${adminId}`);
       this.polls = [];
       if (result.data.success) {
         for (let i = 0; i < result.data.polls.length; i++) {
