@@ -160,5 +160,22 @@ input {
   .poll-card-container {
     width: 100%;
   }
+
+  #form-container, input {
+    box-shadow: none;
+    background-color: var(--grey);
+    width: 100%;
+  }
+
+  #form-container {
+    top: 25%;
+  }
+
+  button {
+    width: 100%;
+    margin: 0;
+    margin-top: 50px;
+    height: 80px;
+  }
 }
 </style>
