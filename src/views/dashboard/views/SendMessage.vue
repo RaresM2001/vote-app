@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     async sendMessage() {
-      await axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
+      axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
       
       this.$vs.notification({
         progress: "auto",
@@ -32,7 +32,7 @@ export default {
     },
 
     async sendAccessCode() {
-      await axios.post(`${environment.getApiUrl()}/mailgun/send_code`, {tradeUnion: localStorage.tradeUnion});
+      axios.post(`${environment.getApiUrl()}/mailgun/send_code`, {tradeUnion: localStorage.tradeUnion});
       this.$vs.notification({
         progress: "auto",
         color: "success",
