@@ -17,6 +17,7 @@
 </template>
 <script>
 import MultipleBarChart from '../../../components/charts/MultipleBarChart.vue'
+import environment from '../../../utils/environment';
 export default {
     components: {
         MultipleBarChart
@@ -34,12 +35,12 @@ export default {
     methods: {
         async geMebersCount() {
             let adminId = localStorage.adminId;
-            let result = await axios.get(`http://localhost:8081/members/count/${adminId}`);
+            let result = await axios.get(`${environment.getApiUrl()}/members/count/${adminId}`);
             if(result.data.success) this.memberCount = result.data.count;
         },
         async getPollsCount() {
             let adminId = localStorage.adminId;
-            let result = await axios.get(`http://localhost:8081/polls/count/${adminId}`);
+            let result = await axios.get(`${environment.getApiUrl()}/polls/count/${adminId}`);
             if(result.data.success) this.pollCount = result.data.count;
         }
     }

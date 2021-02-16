@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import environment from '../../utils/environment';
 export default {
     data() {
         return {
@@ -55,7 +56,7 @@ export default {
         async getPollData() {
             let pollId = this.$route.params.pollId;
             
-            let result = await axios.get(`http://localhost:8081/polls/poll/${pollId}`);
+            let result = await axios.get(`${environment.getApiUrl()}/polls/poll/${pollId}`);
             if(result.data.success) this.pollData = result.data.poll;
             else alert('pollul la care incercati sa participati nu exista sau a fost inchis.');
         },
@@ -64,7 +65,7 @@ export default {
             const loading = this.$vs.loading({background: '#5b3cc4', color: '#fff'});
             let memberId = this.$route.params.memberId;
             
-            let result = await axios.get(`http://localhost:8081/members/member/${memberId}`);
+            let result = await axios.get(`${environment.getApiUrl()}/members/member/${memberId}`);
             if(result.data.success) this.memberData = result.data.member;
             else  alert('Votul dumneavoastra a fost inregistrat deja.');
             
@@ -75,7 +76,7 @@ export default {
             let pollId = this.$route.params.pollId;
             let memberId = this.$route.params.memberId;
             if(!this.pollData.options.length) {
-                let result = await axios.post(`http://localhost:8081/polls/vote/${pollId}/yesorno`, {memberId, vote});
+                let result = await axios.post(`${environment.getApiUrl()}/polls/vote/${pollId}/yesorno`, {memberId, vote});
                 if(result.data.success) this.$router.push({name: 'vote-placed'})
                 else alert('Something went wrong');
             }
@@ -91,8 +92,7 @@ export default {
             let index = this.optionAnswer;
            
 
-            let result = await axios.post(`http://localhost:8081/polls/vote/${pollId}/multiple`, {memberId: memberId, vote: index});
-            console.log(result.data);
+            let result = await axios.post(`${environment.getApiUrl()}/polls/vote/${pollId}/multiple`, {memberId: memberId, vote: index});
         }
     }
 }

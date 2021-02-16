@@ -2,13 +2,15 @@
   <div>
    <div id="container">
       <h1 class="title">Trimiteti mesaj</h1>
-      <textarea  type="text"
-          placeholder="introduceti mesajul" id="message" v-model="message"></textarea>
+      <textarea  type="text" placeholder="introduceti mesajul" id="message" v-model="message"></textarea>
+      <div class="clearfix"></div>
       <button class="m-btn small-btn" @click="sendMessage">TRIMITE</button>
+      <button class="m-btn small-btn" id="send-code-btn" @click="sendAccessCode">TRIMITETI CODUL DE ACCES</button>
    </div>
   </div>
 </template>
 <script>
+import environment from '../../../utils/environment';
 export default {
   data() {
     return {
@@ -17,8 +19,13 @@ export default {
   },
   methods: {
     async sendMessage() {
-       console.log('sending message');
-       let result = await axios.post(`http://localhost:8081/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
+      let result = await axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
+      console.log(result);
+    },
+
+    async sendAccessCode() {
+      let result = await axios.post(`${environment.getApiUrl()}/mailgun/send_code`, {tradeUnion: localStorage.tradeUnion});
+      console.log(result);
     }
   }
 }
@@ -36,13 +43,20 @@ textarea {
 
 #message {
   width: 70%;
-  height: 800px;
+  height: 600px;
+  margin-bottom: 50px;
 }
 
 button {
-  margin-top: 100px;
-  position: absolute;
-  bottom: -100px;
-  left: 100px;
+  margin-right: 50px;
 }
+
+#send-code-btn {
+  background-color: var(--success);
+}
+
+#send-code-btn:hover {
+  background-color: var(--successDark);
+}
+
 </style>

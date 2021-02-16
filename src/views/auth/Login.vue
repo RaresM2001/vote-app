@@ -16,7 +16,9 @@
 </template>
 
 <script>
- 
+
+import environment from '../../utils/environment';
+
 export default {
     data() {
         return {
@@ -36,13 +38,10 @@ export default {
                 color: '#fff'
             });
 
-
-            let result = await axios.post('http://localhost:8081/auth/login', {
+            let result = await axios.post(`${environment.getApiUrl()}/auth/login`, {
                 email: this.emailAddress, 
                 password: this.password
-            })
-
-            console.log(result.data);
+            });
             
             loading.close();
             if(result.data.success) {
@@ -52,8 +51,8 @@ export default {
                 localStorage.setItem('adminId', result.data.adminInfo.id)
                 this.$router.push('/dashboard');
             } else {
-                if(result.data.incorrectUsername) {this.credentialsError.email = true; console.log('incorrect email')}
-                if(result.data.incorrectPassword) {this.credentialsError.password = true; console.log('incorrect password')}
+                if(result.data.incorrectUsername) this.credentialsError.email = true;
+                if(result.data.incorrectPassword) this.credentialsError.password = true;
             }
         },
 

@@ -13,7 +13,6 @@ import PollClosed from '../views/vote/PollClosed.vue'
 
 import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
-import VoteError from '../views/vote/VoteError.vue'
 import SendMessage from '../views/dashboard/views/SendMessage.vue'
 import PollView from '../views/vote/PollView.vue'
 
@@ -62,11 +61,6 @@ const routes = [
     path: '/poll-closed',
     name: 'poll-closed',
     component: PollClosed
-  },
-  {
-    path: '/vote/error',
-    name: 'vote-error',
-    component: VoteError
   },
   {
     path: '/dashboard',

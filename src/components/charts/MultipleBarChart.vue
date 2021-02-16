@@ -6,6 +6,7 @@
   ></apexchart>
 </template>
 <script>
+import environment from '../../utils/environment';
 export default {
   data() {
     return {
@@ -63,7 +64,7 @@ export default {
         let categories = [];
 
         let id = localStorage.adminId;
-        let result = await axios.get(`http://localhost:8081/polls/${id}`);
+        let result = await axios.get(`${environment.getApiUrl()}/polls/${id}`);
         if(result.data.success) {
             result.data.polls.forEach((poll) => {
                 if(poll.options.length == 0) polls.push(poll);

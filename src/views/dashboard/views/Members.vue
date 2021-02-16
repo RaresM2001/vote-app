@@ -16,6 +16,7 @@
           <vs-th> DGRFP </vs-th>
           <vs-th> CNP </vs-th>
           <vs-th> Adresa </vs-th>
+          <vs-th></vs-th>
         </vs-tr>
       </template>
       <template #tbody>
@@ -56,6 +57,7 @@
 </template>
 <script>
 import Vue from 'vue';
+import environment from '../../../utils/environment';
 export default {
 
   data: () => ({
@@ -74,7 +76,7 @@ export default {
       const loading = this.$vs.loading({background: '#5b3cc4', color: '#fff'});
       this.members = [];
       let id = localStorage.adminId;
-      let result = await axios.get(`http://localhost:8081/members/${id}`);
+      let result = await axios.get(`${environment.getApiUrl()}/members/${id}`);
       for(let i = 0; i < result.data.members.length; i++) {
        this.members.push(result.data.members[i]);
       }
@@ -83,7 +85,7 @@ export default {
 
     async deleteMember(id) {
       
-      let result = await axios.delete(`http://localhost:8081/members/${id}`);
+      let result = await axios.delete(`${environment.getApiUrl()}/members/${id}`);
        if (result.data.success) {
           this.$vs.notification({
           progress: "auto",
