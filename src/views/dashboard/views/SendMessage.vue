@@ -19,13 +19,27 @@ export default {
   },
   methods: {
     async sendMessage() {
-      let result = await axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
-      console.log(result);
+      await axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message});
+      
+      this.$vs.notification({
+        progress: "auto",
+        color: "success",
+        position: "top-right",
+        title: "Mesaj Trimis",
+        text: `Mesajul a fost trimist cu succes!`,
+      });
+      this.message = "";
     },
 
     async sendAccessCode() {
-      let result = await axios.post(`${environment.getApiUrl()}/mailgun/send_code`, {tradeUnion: localStorage.tradeUnion});
-      console.log(result);
+      await axios.post(`${environment.getApiUrl()}/mailgun/send_code`, {tradeUnion: localStorage.tradeUnion});
+      this.$vs.notification({
+        progress: "auto",
+        color: "success",
+        position: "top-right",
+        title: "Coduri Trimise",
+        text: `Codurile de acces au fost trimise cu succes!`,
+      });
     }
   }
 }
