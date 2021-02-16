@@ -14,6 +14,7 @@
   --danger: #ff4657;
   --danger-dark: #bd2533;
   --success: #46c93a;
+  --successDark: #3db134;
 } 
 
 * {
@@ -104,7 +105,6 @@ button:hover {
 }
 
 ::placeholder {
-  /* padding-left: 15px; */
   font-size: 1.1em;
 }
 
