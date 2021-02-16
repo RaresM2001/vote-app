@@ -3,8 +3,7 @@
     <div v-if="codeEntered">
       <div class="absolute-center" v-if="polls.length == 0">
         <h1 class="title text-centered">Nu Exista Poll-uri</h1>
-        <p class="subtitle">Nu exista poll-uri active pentru organizatia selectata.</p>
-          <button class="small-btn small-btn-centered" @click="selectedAdmin = false">alta organizatie</button>
+        <p class="subtitle">Momentan, nu exista poll-uri active .</p>
       </div>
       <div v-else>
         <h1 class="title text-centered">Lista Voturi</h1>
