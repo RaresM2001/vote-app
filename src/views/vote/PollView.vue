@@ -76,7 +76,6 @@ export default {
     },
 
     checkForVote() {
-      var votes = JSON.parse(localStorage.getItem('votes'));
       if(this.pollData.options.length == 0) {
         this.pollData.yesOrNoAnswers.forEach((data) => {
           if(data.email == localStorage.getItem("memberEmail")) return this.$router.push({name: 'already-voted'})
