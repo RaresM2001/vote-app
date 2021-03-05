@@ -19,13 +19,6 @@ export default {
     components: {
         Navigation,
         'side-navigation': SideNavigation
-    },
-   
-    data() {
-  
-        return {
-            active: 'home'
-        }
     }
 }
 </script>

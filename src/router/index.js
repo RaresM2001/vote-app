@@ -10,7 +10,6 @@ import Vote from '../views/vote/Vote.vue'
 import VotePlaced from '../views/vote/VotePlaced.vue'
 import AlreadyVoted from '../views/vote/AlreadyVoted.vue'
 import PollClosed from '../views/vote/PollClosed.vue'
-
 import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
 import SendMessage from '../views/dashboard/views/SendMessage.vue'
@@ -20,7 +19,6 @@ Vue.use(VueRouter);
 
 const redirectToList = (to, from, next) => {
  router.push('polls-list-user');
- console.log('rares');
  next();
 }
 
@@ -49,7 +47,7 @@ const routes = [
     path: '/vote/finish',
     name: 'vote-placed',
     component: VotePlaced,
-    beforeLeage:redirectToList
+    beforeLeave:redirectToList
   },
   {
     path: '/vote/already-voted',

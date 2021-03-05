@@ -87,19 +87,18 @@ export default {
       });
 
       let response = await axios.get(`${environment.getApiUrl()}/members/code/${this.code}`);
-      this.selectedAdminId = response.data.member.adminId;
-      console.log(this.selectedAdminId);
-
+      
       loading.close();
 
       if(response.data.success) {
         this.codeEntered = true;
         localStorage.setItem("memberEmail", response.data.member.email);
+        this.selectedAdminId = response.data.member.adminId;
       } else {
         this.credentialsError.password = true;
       }
     }
-  },
+  }, 
 };
 </script>
 <style scoped>
