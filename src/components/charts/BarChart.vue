@@ -13,7 +13,7 @@ export default {
     return {
       series: [],
       options: {
-        colors: ["var(--primary)"],
+        colors: ["var(--primaryColor)"],
         chart: {
           height: 350,
           type: "bar",

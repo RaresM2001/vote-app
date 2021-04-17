@@ -1,10 +1,10 @@
 .vs-table__tr.isExpand:first-of-type .vs-table__td {
-    background: var(--primary);
+    background: var(--primaryColor);
     color: white;
     border-radius: 0px;
   } 
   .vs-table__tr.isExpand:not(:first-of-type) .vs-table__td {
-    background: var(--primary) !important;
+    background: var(--primaryColor) !important;
     color: white;
   }
   

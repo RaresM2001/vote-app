@@ -2,11 +2,11 @@
   <div class="root">
     <div v-if="codeEntered">
       <div class="absolute-center" v-if="polls.length == 0">
-        <h1 class="title text-centered">Nu Exista Poll-uri</h1>
-        <p class="subtitle">Momentan, nu exista poll-uri active .</p>
+        <h1 class="title text-centered">Nu există Poll-uri</h1>
+        <p class="subtitle">Administratorul dumneavoastră nu a deschis nici un poll.</p>
       </div>
       <div v-else>
-        <h1 class="title text-centered">Lista Voturi</h1>
+        <h1 class="title text-centered">Listă Voturi</h1>
         <div id="container" >
           <router-link tag="div" :to="`/polls/${poll._id}`" class="poll-card-container" v-for="poll in polls" :key="poll._id">
             <div class="poll-card light-shadow">
@@ -22,11 +22,11 @@
         <div id="form-container" class="absolute-center light-shadow">
           <h1 class="title text-centered">Introduceti Codul</h1>
           <input type="text" v-model="code" :class="{ dangerInput : credentialsError.password }" @focus="credentialsError.password = false">
-          <p class="danger-p" v-if="credentialsError.password">Condul introdus este gresit!</p>
+          <p class="danger-p" v-if="credentialsError.password">Condul introdus este greșit!</p>
           <button class="small-btn small-btn-centered" @click="checkCode">mai departe</button>
         </div>
       </div>
-      <p id="missing-code">Daca nu ati primit un <span>cod</span> pentru a accesa sesiunile de vot va rugam sa dati click  <router-link tag="a" to="">aici</router-link>.</p>
+      <p id="missing-code">Daca nu ați primit un <span>cod</span> pentru a accesa sesiunile de vot vă rugam sa dați click  <router-link tag="a" to="get_code">aici</router-link>.</p>
     </div>
   </div>
 </template>
@@ -61,6 +61,7 @@ export default {
       let result = await axios.get(`${environment.getApiUrl()}/polls/${this.selectedAdminId}`);
       if(result.data.success) {
         this.polls = result.data.polls;
+        this.polls = this.polls.filter(poll => !poll.closed)
         this.selectedAdmin = true;
       }
 
@@ -80,20 +81,19 @@ export default {
     },
 
     async checkCode() {
-
-       const loading = this.$vs.loading({
+      const loading = this.$vs.loading({
         background: '#5b3cc4',
         color: '#fff'
       });
 
       let response = await axios.get(`${environment.getApiUrl()}/members/code/${this.code}`);
-      
       loading.close();
 
       if(response.data.success) {
         this.codeEntered = true;
         localStorage.setItem("memberEmail", response.data.member.email);
         this.selectedAdminId = response.data.member.adminId;
+        this.getPollsByAdminId();
       } else {
         this.credentialsError.password = true;
       }
@@ -150,7 +150,7 @@ export default {
 .poll-card .title {
   margin: 0;
   font-size: 1.5em;
-  color: var(--primary);
+  color: var(--primaryColor);
 }
 
 .date {

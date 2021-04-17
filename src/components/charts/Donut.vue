@@ -13,7 +13,7 @@ export default {
     return {
       totlaVotes: 0,
       options: {
-        colors: ["var(--primary)", "var(--danger)"],
+        colors: ["var(--primaryColor)", "var(--danger)"],
         plotOptions: {
           pie: {
             donut: {

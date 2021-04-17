@@ -55,7 +55,7 @@ nav {
 }
 
 .icon:hover {
-    fill: var(--primary);
+    fill: var(--primaryColor);
 }
 
 #actions {

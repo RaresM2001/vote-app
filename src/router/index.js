@@ -14,6 +14,7 @@ import Polls from '../views/dashboard/views/Polls.vue'
 import AddMember from '../views/dashboard/views/AddMember.vue'
 import SendMessage from '../views/dashboard/views/SendMessage.vue'
 import PollView from '../views/vote/PollView.vue'
+import GetCode from '../views/vote/GetCode'
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/get_code',
+    name: 'get-code',
+    component: GetCode
   },
   {
     path: '/',

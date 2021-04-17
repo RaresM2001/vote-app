@@ -2,13 +2,12 @@
   <div id="centered">
     <h1 class="title">Adaugati Membru</h1>
     <form action="">
-      <input type="text" placeholder="prenume" v-model="memberInfo.firstName"  />
-      <input type="text" placeholder="nume"  v-model="memberInfo.lastName" />
+      <input type="text" placeholder="Nume si prenume" v-model="memberInfo.firstName"  />
       <input type="text" placeholder="CNP" v-model="memberInfo.CNP"  />
-      <input type="text" placeholder="adresa"  v-model="memberInfo.address" />
-      <input type="email" placeholder="email" v-model="memberInfo.email" />
-      <input type="text" placeholder="DGRFP"  v-model="memberInfo.DGRFP" />
-      <input type="text" placeholder="data adeziunii" v-model="memberInfo.joinedIn" />
+      <input type="text" placeholder="Adresa"  v-model="memberInfo.address" />
+      <input type="email" placeholder="Email" v-model="memberInfo.email" />
+      <input type="text" placeholder="Unitate"  v-model="memberInfo.DGRFP" />
+      <input type="text" placeholder="Aata adeziunii" v-model="memberInfo.joinedIn" />
 
       <button type="submit" class="m-btn small-btn" @click="(event) => {addMember(event);}">adauga membru</button>
     </form>
@@ -23,7 +22,6 @@ export default {
     return {
       memberInfo: {
         firstName: "",
-        lastName: "",
         CNP: "",
         adress: "",
         email: "",
@@ -60,7 +58,7 @@ export default {
 
     async addMemberToMailingList(member) {
       let result = await axios.post(`${environment.getApiUrl()}/mailgun/add_member/members`, {member: {...member},  tradeUnion: localStorage.tradeUnion.toLowerCase()});
-      if(!result.data.success) notifications.notifyFail('Posibila problema!', 'Membrul adaugat nu a fost adaugat in mailing list!');
+      if(!result.data.success) notifications.notifyFail('Posibila problema!', 'Membrul adaugat nu a fost adaugat in mailing list!', this.$vs);
     }
     
   },

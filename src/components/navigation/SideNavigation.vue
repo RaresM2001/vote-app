@@ -64,8 +64,8 @@ export default {
 }
 
 .side-li:hover p, .side-li:hover .icon {
-    color: var(--primary);
-    fill: var(--primary);
+    color: var(--primaryColor);
+    fill: var(--primaryColor);
 }
 
 .side-li .icon {

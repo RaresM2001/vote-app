@@ -3,17 +3,17 @@
     <vs-table v-model="selected">
       <template #thead>
         <vs-tr>
-          <vs-th>
+          <!-- <vs-th>
             <vs-checkbox
               :indeterminate="selected.length == members.length"
               v-model="allCheck"
               @change="selected = $vs.checkAll(selected, members)"
             />
-          </vs-th>
-          <vs-th> Prenume </vs-th>
+          </vs-th> -->
+          <vs-th> Nr. Crt. </vs-th>
           <vs-th> Nume </vs-th>
           <vs-th> Email </vs-th>
-          <vs-th> DGRFP </vs-th>
+          <vs-th> Unitate </vs-th>
           <vs-th> CNP </vs-th>
           <vs-th> Adresa </vs-th>
           <vs-th></vs-th>
@@ -26,14 +26,11 @@
           :data="member"
           :is-selected="!!selected.includes(member)"
         >
-          <vs-td checkbox>
-            <vs-checkbox :val="member" v-model="selected" />
+          <vs-td>
+            {{ member.nrCrt }}
           </vs-td>
           <vs-td>
             {{ member.firstName }}
-          </vs-td>
-          <vs-td>
-            {{ member.lastName }}
           </vs-td>
           <vs-td>
              {{ member.email }}

@@ -4,11 +4,11 @@ import router from './router'
 import store from './store'
 
 
-require('./config/axios')
-require('./config/unicons')
-require('./config/vuesax')
-require('./config/apexcharts')
-require('dotenv').config()
+require('./config/axios');
+require('./config/unicons');
+require('./config/vuesax');
+require('./config/apexcharts');
+require('dotenv').config();
 
 Vue.config.productionTip = false
 

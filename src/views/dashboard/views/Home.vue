@@ -86,7 +86,7 @@ export default {
 }
 
 span {
-    color: var(--primary);
+    color: var(--primaryColor);
     font-size: 3em;
 }
 

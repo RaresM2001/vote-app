@@ -7,7 +7,7 @@
 <style>
 
 :root {
-  --primary:  #5b3cc4;
+  --primaryColor:  #5b3cc4;
   --primary-dark: #3f229e;
   --grey: #f8f9fc;
   --dark: #161c2d;
@@ -62,7 +62,7 @@ textarea {
 }
 
 input:focus {
-  border-color: var(--primary);
+  border-color: var(--primaryColor);
 }
 
 .dangerInput {
@@ -74,7 +74,7 @@ button {
   border: none;
   height: 60px;
   color: white;
-  background: var(--primary);
+  background: var(--primaryColor);
   font-weight: bold;
   cursor: pointer;
   transition: all .4s;

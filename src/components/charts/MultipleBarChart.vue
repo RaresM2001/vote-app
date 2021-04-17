@@ -25,7 +25,7 @@ export default {
         },
       ],
       options: {
-        colors: ["var(--primary)", "var(--danger)", "#ffba00"],
+        colors: ["var(--primaryColor)", "var(--danger)", "#ffba00"],
         chart: {
           type: "bar",
           height: 350,
