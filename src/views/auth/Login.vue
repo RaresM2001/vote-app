@@ -45,7 +45,9 @@ export default {
             
             loading.close();
             if(result.data.success) {
+                console.log('Admin info data is: ', result.data.adminInfo);
                 localStorage.setItem('firstName', result.data.adminInfo.firstName);
+                localStorage.setItem('settings', result.data.adminInfo.settings);
                 localStorage.setItem('lastName', result.data.adminInfo.lastName);
                 localStorage.setItem('tradeUnion', result.data.adminInfo.tradeUnion);
                 localStorage.setItem('adminId', result.data.adminInfo.id)

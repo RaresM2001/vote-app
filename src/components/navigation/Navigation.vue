@@ -2,7 +2,7 @@
     <nav>
         <ul id="actions">
             <li><unicon @click="logout" name="signout" class="icon"></unicon></li>
-            <li><unicon name="setting" class="icon"></unicon></li>
+            <li><unicon @click="redirectToSettings" name="setting" class="icon"></unicon></li>
         </ul>
          <vs-avatar dark id="avatar">
             <template #text>
@@ -27,6 +27,10 @@ export default {
         async logout() {
             let result = await axios.post(`${environment.getApiUrl()}/auth/logout`);
             if(result.status == 200) this.$router.push({name: 'login'});
+        },
+
+        redirectToSettings() {
+            this.$router.push({name: 'settings'});
         }
     }
 }
