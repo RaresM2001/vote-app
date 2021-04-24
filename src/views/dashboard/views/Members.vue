@@ -3,7 +3,7 @@
     <table class="rwd-table">
       <tbody id="firstTb">
         <tr>
-          <th>Nr. Crt.</th>
+          <th>Nr.</th>
           <th>Nume</th>
           <th>Email</th>
           <th>Unitate</th>
@@ -13,7 +13,7 @@
         </tr>
         <tr @click="$router.push('members/' + member._id)" :key="i" v-for="(member, i) in members">
           <td>
-            {{member.nrCrt}}
+            {{i + 1}}.
           </td>
           <td>
             {{member.firstName}}
@@ -114,7 +114,7 @@ export default {
 .rwd-table {
   width: 100%;
   max-width: 100%;
-   /* table-layout: auto; */
+  margin-top: 30px;
   border-collapse: collapse;
 }
 

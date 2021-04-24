@@ -1,9 +1,9 @@
 <template>
   <div id="settings-container">
     <h1 class="title">Setări</h1>
-    <h3 class="subtitle">Setari sesiuni vot</h3>
+    <h3 class="subtitle">Setări sesiuni vot</h3>
     <vs-checkbox @change="settingsChanged" class="switch" v-model="adminSettings.sendMailWhenPollIsCreated">
-      Trimiteti mail membrilor in momentul crearii votului.
+      Trimiteți mail membrilor in momentul creării sesiunii de  vot.
     </vs-checkbox>
     <div class="line-separator"></div>
     <button v-if="adminChangedSettings" class="m-btn small-btn" @click="saveSettings">salvează</button>

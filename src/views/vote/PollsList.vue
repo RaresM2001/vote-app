@@ -2,8 +2,8 @@
   <div class="root">
     <div v-if="codeEntered">
       <div class="absolute-center" v-if="polls.length == 0">
-        <h1 class="title text-centered">Nu există Poll-uri</h1>
-        <p class="subtitle">Administratorul dumneavoastră nu a deschis nici un poll.</p>
+        <h1 class="title text-centered">Nu există sesiuni de vot.</h1>
+        <p class="subtitle">Administratorul dumneavoastră nu a deschis nici o sesiune de vot.</p>
       </div>
       <div v-else>
         <h1 class="title text-centered">Listă Voturi</h1>

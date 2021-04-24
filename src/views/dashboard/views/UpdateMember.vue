@@ -41,7 +41,6 @@ export default {
   methods: {
     async getMemberData() {
       let result = await axios.get(`${environment.getApiUrl()}/members/member/${this.$route.params.id}`);
-      console.log(result)
       if(result.data.success) {
         this.memberInfo = result.data.member;
         this.currentCNP = result.data.member.CNP;
@@ -50,9 +49,12 @@ export default {
     },
 
     async updateMemberData() {
-      console.log('Updatinig the fucking member.')
       let result = await axios.post(`${environment.getApiUrl()}/members/${this.memberId}`, {currentCNP: this.currentCNP, updatedInfo: this.memberInfo});
-      console.log(result);
+      if(result.data.success) {
+        notifications.notifySuccess('Membru updatat', 'Datele membrului au fost updatate cu success!', this.$vs);
+        this.$router.go(-1);
+      }
+      else notifications.notifyFail('Eroare', 'A intervenit o eraore. Va rugam incercati mai tarziu.', this.$vs);
     },
 
     clearInputs() {

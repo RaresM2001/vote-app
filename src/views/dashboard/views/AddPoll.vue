@@ -117,37 +117,37 @@ export default {
     },
 
     async createPoll() {
-      var pollData;
-      if (this.pollInfo.yesOrNo) {
-        pollData = {
-          title: this.pollInfo.title,
-          adminId: localStorage.getItem("adminId"),
-          question: this.pollInfo.question,
-          yesOrNoAnswers: [],
-          options: [],
-          optionAnswers: [],
-          closed: false,
-          date: dateUtil.currentDateFormat()
-        };
-      } else {
-        pollData = {
-          title: this.pollInfo.title,
-          question: this.pollInfo.question,
-          adminId: localStorage.getItem("adminId"),
-          yesOrNoAnswers: [],
-          options: this.multipleAnswersOptions,
-          optionAnswers: [],
-          closed: false,
-          date: dateUtil.currentDateFormat()
-        };
+      let pollData ={
+        title: this.pollInfo.title,
+        adminId: localStorage.getItem("adminId"),
+        question: this.pollInfo.question,
+        yesOrNoAnswers: [],
+        options: [],
+        optionAnswers: [],
+        closed: false,
+        date: dateUtil.currentDateFormat()
       }
-      pollData.adminId = localStorage.adminId;
+
+      if (!this.pollInfo.yesOrNo) pollData.options = this.multipleAnswersOptions;
+      
       let result = await axios.post(`${environment.getApiUrl()}/polls`, {
         ...pollData
       });
+
       if(result.data.success)  {
-        this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Creat', text: 'Poll-ul a fost creat cu succes!'})
+        this.$vs.notification({ 
+          progress: 'auto', 
+          color: 'success', 
+          position: 'top-right', 
+          title: 'Sesiune de vot creată', 
+          text: 'Sesiunea a fost creată cu succes!'
+        })
         this.clearFields();
+
+        let settings = JSON.parse(localStorage.getItem('settings'));
+        if(settings.sendMailAfterPollIsCreated) {
+          axios.post(`${environment.getApiUrl()}/mailgun/send_mail`, {tradeUnion: localStorage.tradeUnion, message: this.message, isAlertEmail: true});
+        }   
       }
     }
 

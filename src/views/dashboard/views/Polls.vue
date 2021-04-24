@@ -17,13 +17,13 @@
             {{ poll.date }}
           </vs-td>
           <vs-td>
-            <p v-if="poll.closed" class="danger-color">Inchisa</p>
+            <p v-if="poll.closed" class="danger-color">Închisă</p>
             <p v-else class="success-color">Deschis</p>
           </vs-td>
           <template #expand>
             <bar-chart v-if="poll.options.length > 0" :pollData="poll"></bar-chart>
             <donut-chart v-else :pollData="poll"></donut-chart>
-            <button class="m-btn rounded-btn" id="delete" @click="() => {closePoll(poll._id)}">inchide</button>
+            <button class="m-btn rounded-btn" id="delete" @click="() => {closePoll(poll._id)}">închide</button>
           </template>
         </vs-tr>
       </template>
@@ -56,7 +56,14 @@ export default {
   methods: {
     async closePoll(id) {
       let result = await axios.post(`${environment.getApiUrl()}/polls/update/${id}`);
-      if(result.data.success) this.$vs.notification({ progress: 'auto', color: 'success', position: 'top-right', title: 'Poll Inchis', text: 'Poll-ul a fost inchis cu succes!'})
+      if(result.data.success) {
+        this.$vs.notification({ 
+          color: 'success', 
+          position: 'top-right', 
+          title: 'Sesiune Vot Inchisă', 
+          text: 'Sesiunea de vot a fost inchisă cu succes!'
+        })
+      }
       this.getPolls();
     },
     async getPolls() {
