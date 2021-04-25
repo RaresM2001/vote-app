@@ -15,6 +15,8 @@ import AddMember from '../views/dashboard/views/AddMember.vue'
 import SendMessage from '../views/dashboard/views/SendMessage.vue'
 import PollView from '../views/vote/PollView.vue'
 import GetCode from '../views/vote/GetCode'
+import Settings from '../views/dashboard/views/Settings.vue'
+import UpdateMember from '../views/dashboard/views/UpdateMember.vue'
 
 Vue.use(VueRouter);
 
@@ -71,7 +73,9 @@ const routes = [
     component: Dashboard,
     children: [
       { path: '', name: 'dash-home', component: Home },
+      { path: 'settings', name: 'settings', component: Settings },
       { path: 'members', name: 'dash-members', component: DashboardMembers },
+      { path: 'members/:id', name: 'update-member', component: UpdateMember },
       { path: 'add_member', name: 'add-member', component: AddMember },
       { path: 'create_poll', name: 'dash-create-poll', component: CreatePoll },
       { path: 'polls', name: 'polls-list', component: Polls },

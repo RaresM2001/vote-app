@@ -5,7 +5,7 @@
       <textarea  type="text" placeholder="introduceti mesajul" id="message" v-model="message"></textarea>
       <div class="clearfix"></div>
       <button class="m-btn small-btn" @click="sendMessage">TRIMITE</button>
-      <button class="m-btn small-btn" id="send-code-btn" @click="sendAccessCode">TRIMITETI CODUL DE ACCES</button>
+      <button class="m-btn small-btn" id="send-code-btn" @click="sendAccessCode">TRIMITEȚI CODUL DE ACCES</button>
    </div>
   </div>
 </template>
