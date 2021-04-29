@@ -1,8 +1,8 @@
 <template>
   <div id="settings-container">
     <h1 class="title">Setări</h1>
-    <h3 class="subtitle">Setări sesiuni vot</h3>
-    <vs-checkbox @change="settingsChanged" class="switch" v-model="adminSettings.sendMailWhenPollIsCreated">
+    <h3 class="subtitle">Setări sesiuni vot {{adminSettings.sendMailAfterPollIsCreated}}</h3>
+    <vs-checkbox @change="settingsChanged" class="switch" v-model="adminSettings.sendMailAfterPollIsCreated">
       Trimiteți mail membrilor in momentul creării sesiunii de  vot.
     </vs-checkbox>
     <div class="line-separator"></div>
@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       adminSettings: {
-        sendMailWhenPollIsCreated: false
+        sendMailAfterPollIsCreated: false
       },
       adminChangedSettings: false
     }
@@ -35,6 +35,7 @@ export default {
   methods: {
     settingsChanged() {
       this.adminChangedSettings = true;
+      console.log(this.adminSettings.sendMailAfterPollIsCreated)
     },
 
     async saveSettings() {
@@ -43,17 +44,17 @@ export default {
         color: '#fff'
       });
       this.adminChangedSettings = false;
-      let result = await axios.post(`${environment.getApiUrl()}/admin/update_settings`, {id: localStorage.getItem('adminId'), settings: this.adminSettings});
+      console.log('Admin settings when saved', this.adminSettings.sendMailAfterPollIsCreated);
+      let result = await axios.post( `${environment.getApiUrl()}/admin/update_settings`, {id: localStorage.getItem('adminId'), settings: this.adminSettings})
       loading.close();
-      if(!result.data) notification.notifyFail('Erroare', 'A aparut o eroare. Va rugam incercati mai tarziu.', this.$vs);
-      else notification.notifySuccess('Setari schimbate', 'Setarile dumneavoastra au fost updatate cu succes!', this.$vs);
+      if(!result.data) notification.notifyFail('Erroare', 'A aparut o eroare. Vă rugăm incercați mai târziu.', this.$vs);
+      else notification.notifySuccess('Setari schimbate', 'Setările dumneavoastră au fost updatate cu succes!', this.$vs);
     },
 
     async getCurrentSettings() {
       let result = await axios.get(`${environment.getApiUrl()}/admin/${localStorage.getItem('adminId')}`);
-      if(result.data.success) {
-        this.adminSettings.sendMailWhenPollIsCreated = result.data.settings.sendMailWhenPollIsCreated;
-      }
+      if(result.data.success) this.adminSettings.sendMailAfterPollIsCreated = result.data.settings.sendMailAfterPollIsCreated;
+      else notification.notifyFail('Erroare', 'Setări indisponibile. Vă rugăm încercați mai târziu.', this.$vs);
     }
   }
 }
